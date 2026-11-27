@@ -1,9 +1,7 @@
 
 <p align="center">
-  <img src="images/meditracker-logo.png" alt="Meditracker Logo" width="350">
+  <img src="images/meditracker-logo.png" alt="Meditracker Logo" width="500">
 </p>
-
-<h1 align="center">Meditracker</h1>
 
 <p align="center">
   A Web-Based Medicine Inventory Management System

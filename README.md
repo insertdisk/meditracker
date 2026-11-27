@@ -1,4 +1,13 @@
-# Meditracker
+
+<p align="center">
+  <img src="images/meditracker-logo.png" alt="Meditracker Logo" width="350">
+</p>
+
+<h1 align="center">Meditracker</h1>
+
+<p align="center">
+  A Web-Based Medicine Inventory Management System
+</p>
 
 **Meditracker** is a web-based medicine inventory management system designed to help users organize and monitor medicine stocks. It allows administrators to manage medicine records, track quantities, and monitor expiration dates through a simple user interface.
 

@@ -1,0 +1,18 @@
+# Database credentials
+db_connection.php
+.env
+
+# Database backups
+*.sql
+
+# Temporary utilities
+generate_hash.php
+
+# macOS files
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Unknown temporary file
+aa

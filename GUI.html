@@ -12,6 +12,8 @@
             --light-blue: #e6f7ff;
             --border-color: #ddd;
             --header-bg: #f8f9fa;
+            --delete-color: #e74c3c;
+            --exit-color: #f39c12;
         }
         
         * {
@@ -85,11 +87,11 @@
         
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px; /* Reduced gap between buttons */
         }
         
         .btn {
-            padding: 8px 20px;
+            padding: 8px 12px; /* Reduced padding for more compact buttons */
             border-radius: 5px;
             border: none;
             color: white;
@@ -99,6 +101,7 @@
             gap: 5px;
             font-weight: 500;
             transition: background-color 0.2s;
+            font-size: 14px; /* Slightly smaller font size */
         }
         
         .btn-sort {
@@ -113,8 +116,12 @@
             background-color: #00b8d4;
         }
         
-        .btn-export {
-            background-color: #00b8d4;
+        .btn-delete {
+            background-color: var(--delete-color); /* Red color for delete button */
+        }
+        
+        .btn-exit {
+            background-color: var(--exit-color); /* Orange color for exit button */
         }
         
         .btn:hover {
@@ -134,6 +141,7 @@
             color: #555;
             border-bottom: 1px solid var(--border-color);
             position: relative;
+            cursor: pointer;
         }
         
         .inventory-table th i {
@@ -156,7 +164,7 @@
         
         .checkbox {
             width: 18px;
-            height: 18px;∫
+            height: 18px;
             cursor: pointer;
         }
         
@@ -168,13 +176,39 @@
         }
         
         .info-icon {
-            color: var(--primary-color);∫
+            color: var(--primary-color);
             cursor: pointer;
             font-size: 18px;
         }
         
         .responsive-table {
             overflow-x: auto;
+        }
+        
+        /* Sort dropdown styles */
+        .sort-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            display: none;
+        }
+        
+        .sort-dropdown.show {
+            display: block;
+        }
+        
+        .sort-option {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        
+        .sort-option:hover {
+            background-color: var(--light-blue);
         }
         
         @media (max-width: 768px) {
@@ -187,8 +221,8 @@
             }
             
             .btn {
-                padding: 6px 12px;
-                font-size: 14px;
+                padding: 6px 10px;
+                font-size: 13px;
             }
             
             .inventory-table th, 
@@ -227,6 +261,7 @@
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
 
         .modal-content {
@@ -297,6 +332,7 @@
             background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
 
         .modal-delete-content {
@@ -352,8 +388,115 @@
         }
 
         .btn-confirm-delete {
-            background-color: #e74c3c;
+            background-color: var(--delete-color);
             color: white;
+        }
+
+        /* Edit modal styles */
+        .modal-edit {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-edit-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-edit-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-edit-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-edit-body label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .modal-edit-body input {
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .modal-edit-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-edit-footer button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-cancel-edit {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .btn-save-edit {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Sort dropdown */
+        .sort-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sort-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 5px;
+        }
+
+        .sort-dropdown a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .sort-dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
         }
     </style>
 </head>
@@ -361,28 +504,38 @@
     <div class="container">
         <header>
             <div class="logo">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMDA5OWNjIiBkPSJNMjU2IDhDMTE5LjA0MyA4IDggMTE5LjA4MyA4IDI1NmMwIDEzNi45OTcgMTExLjA0MyAyNDggMjQ4IDI0OHMyNDgtMTExLjAwMyAyNDgtMjQ4QzUwNCAxMTkuMDgzIDM5Mi45NTcgOCAyNTYgOHptMCA0NThjLTExMC41MzIgMC0yMDAtODkuNDMxLTIwMC0yMDAgMC0xMTAuNDk1IDg5LjQ3Mi0yMDAgMjAwLTIwMCAxMTAuNDkgMCAyMDAgODkuNDcxIDIwMCAyMDAgMCAxMTAuNTMtODkuNDMxIDIwMC0yMDAgMjAwem0xMDcuMjQ0LTM2Ny4yNTRsLTMwLjUzNiAyMDQuMjA0Yy0xLjU2NSAxMC40MDQtMTAuNDA0IDE4LjE4MS0yMC45MjcgMTguMTgxaC0xMDMuNTZjLTEwLjUyMyAwLTE5LjM2Mi03Ljc3Ny0yMC45MjctMTguMTgxTDE1Ni43NTYgOTguNzQ2Yy0yLjg4MS0xOS4yMDYgMTEuOTM2LTM2Ljc0NiAzMS4yMTctMzYuNzQ2aDEzOC4wNTRjMTkuMjgxIDAgMzQuMDk4IDE3LjU0IDMxLjIxNyAzNi43NDZ6TTI1NiAyNzJjLTIyLjA5NiAwLTQwIDE3Ljk0NC00MCA0MHMxNy45MDQgNDAgNDAgNDAgNDAtMTcuOTQ0IDQwLTQwLTE3LjkwNC00MC00MC00MHoiLz48L3N2Zz4=" alt="MediStock Logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMDA5OWNjIiBkPSJNMjU2IDhDMTE5LjA0MyA4IDggMTE5LjA4MyA4IDI1NmMwIDEzNi45OTcgMTExLjA0MyAyNDggMjQ4IDI0OHMyNDgtMTExLjAwMyAyNDgtMjQ4QzUwNCAxMTkuMDgzIDM5Mi45NTcgOCAyNTYgOHptMCA0NThjLTExMC41MzIgMC0yMDAtODkuNDMxLTIwMC0yMDAgMC0xMTAuNDk1IDg5LjQ3Mi0yMDAgMjAwLTIwMCAxMTAuNDkgMCAyMDAgODkuNDcxIDIwMCAyMDAgMCAxMTAuNTMtODkuNDMxIDIwMC0yMDAgMjAwem0xMDcuMjQ0LTM2Ny4yNTRsLTMwLjUzNiAyMDQuMjA0Yy0xLjU2NSAxMC40MDQtMTAuNDA0IDE4LjE4MS0yMC45MjcgMTguMzgxaC0xMDMuNTZjLTEwLjUyMyAwLTE5LjM2Mi03Ljc3Ny0yMC45MjctMTguMTgxTDE1Ni43NTYgOTguNzQ2Yy0yLjg4MS0xOS4yMDYgMTEuOTM2LTM2Ljc0NiAzMS4yMTctMzYuNzQ2aDEzOC4wNTRjMTkuMjgxIDAgMzQuMDk4IDE3LjU0IDMxLjIxNyAzNi43NDZ6TTI1NiAyNzJjLTIyLjA5NiAwLTQwIDE3Ljk0NC00MCA0MHMxNy45MDQgNDAgNDAgNDAgNDAtMTcuOTQ0IDQwLTQwLTE3LjkwNC00MC00MC00MHoiLz48L3N2Zz4=" alt="MediStock Logo">
                 <h1>MediStock | USC Clinic Inventory System</h1>
             </div>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search...">
+                <input type="text" id="searchInput" placeholder="Search...">
             </div>
             <div class="action-buttons">
-                <button class="btn btn-sort">
-                    <i class="fas fa-sort"></i> Sort
-                </button>
-                <button class="btn btn-add">
+                <div class="sort-container">
+                    <button class="btn btn-sort" id="sortBtn">
+                        <i class="fas fa-sort"></i> Sort
+                    </button>
+                    <div id="sortDropdown" class="sort-dropdown">
+                        <a href="#" data-column="name" data-order="asc">Name (A-Z)</a>
+                        <a href="#" data-column="name" data-order="desc">Name (Z-A)</a>
+                        <a href="#" data-column="expiry_date" data-order="asc">Expiry (Earliest)</a>
+                        <a href="#" data-column="expiry_date" data-order="desc">Expiry (Latest)</a>
+                        <a href="#" data-column="quantity" data-order="asc">Quantity (Low-High)</a>
+                        <a href="#" data-column="quantity" data-order="desc">Quantity (High-Low)</a>
+                    </div>
+                </div>
+                <button class="btn btn-add" id="addBtn">
                     <i class="fas fa-plus"></i> Add
                 </button>
-                <button class="btn btn-edit">
+                <button class="btn btn-edit" id="editBtn">
                     <i class="fas fa-edit"></i> Edit
                 </button>
-                <button class="btn btn-export">
-                    <i class="fas fa-share-square"></i>
+                <button class="btn btn-delete" id="deleteBtn">
+                    <i class="fas fa-trash"></i>
                 </button>
-                <button class="btn btn-delete">
-                    <i class="fas fa-trash"></i> Delete
+                <button class="btn btn-exit" id="exitBtn">
+                    <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
         </header>
@@ -392,106 +545,17 @@
                 <thead>
                     <tr>
                         <th style="width: 40px;"></th>
-                        <th>Product <i class="fas fa-sort-down"></i></th>
-                        <th>ID <i class="fas fa-sort"></i></th>
-                        <th>Form <i class="fas fa-sort"></i></th>
-                        <th>Expiry <i class="fas fa-sort"></i></th>
-                        <th>Location <i class="fas fa-sort"></i></th>
-                        <th>Quantity <i class="fas fa-sort"></i></th>
+                        <th data-column="name">Product <i class="fas fa-sort"></i></th>
+                        <th data-column="unique_id">ID <i class="fas fa-sort"></i></th>
+                        <th data-column="form">Form <i class="fas fa-sort"></i></th>
+                        <th data-column="expiry_date">Expiry <i class="fas fa-sort"></i></th>
+                        <th data-column="location">Location <i class="fas fa-sort"></i></th>
+                        <th data-column="quantity">Quantity <i class="fas fa-sort"></i></th>
                         <th>Remarks</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="selected">
-                        <td><input type="checkbox" class="checkbox" checked></td>
-                        <td>Lorem Ipsum</td>
-                        <td>1238829293500</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">1</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr class="selected">
-                        <td><input type="checkbox" class="checkbox" checked></td>
-                        <td>Lorem Ipsum</td>
-                        <td>8228283292498</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Refrigerator</td>
-                        <td class="quantity-cell">2.5</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr class="selected">
-                        <td><input type="checkbox" class="checkbox" checked></td>
-                        <td>Lorem Ipsum</td>
-                        <td>2828283829298</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">3</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="checkbox"></td>
-                        <td>Lorem Ipsum</td>
-                        <td>2482028450233</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">20</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="checkbox"></td>
-                        <td>Lorem Ipsum</td>
-                        <td>1225934438302</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">4</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="checkbox"></td>
-                        <td>Lorem Ipsum</td>
-                        <td>2329503499832</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">8</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="checkbox"></td>
-                        <td>Lorem Ipsum</td>
-                        <td>2385018374233</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">15</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="checkbox"></td>
-                        <td>Lorem Ipsum</td>
-                        <td>2342029542030</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">4</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="checkbox"></td>
-                        <td>Lorem Ipsum</td>
-                        <td>9129348253484</td>
-                        <td>50 mg<br>Tablet</td>
-                        <td>06/27/2025</td>
-                        <td>Clinic<br>Medical Cabinet</td>
-                        <td class="quantity-cell">7</td>
-                        <td><i class="fas fa-info-circle info-icon"></i></td>
-                    </tr>
+                <tbody id="inventoryTableBody">
+                    <!-- Table data will be loaded dynamically -->
                 </tbody>
             </table>
         </div>
@@ -524,6 +588,34 @@
         </div>
     </div>
 
+    <!-- Modal for editing an item -->
+    <div class="modal-edit" id="editItemModal">
+        <div class="modal-edit-content">
+            <div class="modal-edit-header">Edit Item</div>
+            <div class="modal-edit-body">
+                <input type="hidden" id="editId">
+                <label for="editProduct">Product</label>
+                <input type="text" id="editProduct" placeholder="Enter product name">
+                <label for="editProductId">ID</label>
+                <input type="text" id="editProductId" placeholder="Enter product ID">
+                <label for="editForm">Form</label>
+                <input type="text" id="editForm" placeholder="Enter form (e.g., 50 mg Tablet)">
+                <label for="editExpiry">Expiry</label>
+                <input type="date" id="editExpiry">
+                <label for="editLocation">Location</label>
+                <input type="text" id="editLocation" placeholder="Enter location">
+                <label for="editQuantity">Quantity</label>
+                <input type="number" id="editQuantity" placeholder="Enter quantity">
+                <label for="editRemarks">Remarks</label>
+                <input type="text" id="editRemarks" placeholder="Enter remarks">
+            </div>
+            <div class="modal-edit-footer">
+                <button class="btn-cancel-edit" id="cancelEdit">Cancel</button>
+                <button class="btn-save-edit" id="saveEdit">Save</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal for deleting an item -->
     <div class="modal-delete" id="deleteItemModal">
         <div class="modal-delete-content">
@@ -539,47 +631,113 @@
     </div>
 
     <script>
-        // Add interactivity to checkboxes
-        document.querySelectorAll('.checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const row = this.closest('tr');
-                if (this.checked) {
-                    row.classList.add('selected');
-                } else {
-                    row.classList.remove('selected');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load inventory data on page load
+            loadInventoryData();
+            
+            // Add event listeners to buttons
+            document.getElementById('sortBtn').addEventListener('click', toggleSortDropdown);
+            document.getElementById('addBtn').addEventListener('click', showAddModal);
+            document.getElementById('editBtn').addEventListener('click', showEditModal);
+            document.getElementById('deleteBtn').addEventListener('click', showDeleteModal);
+            document.getElementById('exitBtn').addEventListener('click', exitApplication);
+            
+            // Add event listeners to modal buttons
+            document.getElementById('cancelAdd').addEventListener('click', hideAddModal);
+            document.getElementById('saveAdd').addEventListener('click', saveNewItem);
+            document.getElementById('cancelEdit').addEventListener('click', hideEditModal);
+            document.getElementById('saveEdit').addEventListener('click', saveEditedItem);
+            document.getElementById('cancelDelete').addEventListener('click', hideDeleteModal);
+            document.getElementById('confirmDelete').addEventListener('click', deleteSelectedItems);
+            
+            // Add event listener to search input
+            document.getElementById('searchInput').addEventListener('input', searchItems);
+            
+            // Add event listeners to sort dropdown options
+            document.querySelectorAll('#sortDropdown a').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const column = this.getAttribute('data-column');
+                    const order = this.getAttribute('data-order');
+                    sortTable(column, order);
+                    document.getElementById('sortDropdown').classList.remove('show');
+                });
+            });
+            
+            // Add event listeners to table headers for sorting
+            document.querySelectorAll('.inventory-table th[data-column]').forEach(header => {
+                header.addEventListener('click', function() {
+                    const column = this.getAttribute('data-column');
+                    const currentOrder = this.getAttribute('data-order') || 'asc';
+                    const newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+                    
+                    // Reset all headers
+                    document.querySelectorAll('.inventory-table th[data-column]').forEach(h => {
+                        h.setAttribute('data-order', '');
+                        h.querySelector('i').className = 'fas fa-sort';
+                    });
+                    
+                    // Set new order on clicked header
+                    this.setAttribute('data-order', newOrder);
+                    this.querySelector('i').className = newOrder === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+                    
+                    sortTable(column, newOrder);
+                });
+            });
+            
+            // Close sort dropdown when clicking outside
+            window.addEventListener('click', function(event) {
+                if (!event.target.matches('.btn-sort') && !event.target.matches('.fa-sort')) {
+                    const dropdown = document.getElementById('sortDropdown');
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
                 }
             });
         });
-
-        // Add interactivity to sort button
-        document.querySelector('.btn-sort').addEventListener('click', function() {
-            alert('Sort functionality would be implemented here');
-        });
-
-        // Add interactivity to add button
-        document.querySelector('.btn-add').addEventListener('click', function() {
-            document.getElementById('addItemModal').style.display = 'flex';
-        });
-
-        // Close modal on cancel
-        document.getElementById('cancelAdd').addEventListener('click', function() {
-            document.getElementById('addItemModal').style.display = 'none';
-        });
-
-        // Function to attach checkbox event listener to rows
-        function attachCheckboxListener(row) {
-            const checkbox = row.querySelector('.checkbox');
-            checkbox.addEventListener('change', function () {
-                if (this.checked) {
-                    row.classList.add('selected');
+        
+        // Function to load inventory data
+        function loadInventoryData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_items.php', true);
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('inventoryTableBody').innerHTML = xhr.responseText;
+                    attachCheckboxListeners();
                 } else {
-                    row.classList.remove('selected');
+                    alert('Error loading inventory data.');
                 }
+            };
+            
+            xhr.onerror = function() {
+                alert('Error loading inventory data. Please check your connection.');
+            };
+            
+            xhr.send();
+        }
+        
+        // Function to toggle sort dropdown
+        function toggleSortDropdown() {
+            document.getElementById('sortDropdown').classList.toggle('show');
+        }
+        
+        // Function to show add modal
+        function showAddModal() {
+            document.getElementById('addItemModal').style.display = 'flex';
+            // Clear form fields
+            document.querySelectorAll('#addItemModal input').forEach(input => {
+                input.value = '';
             });
         }
-
-        // Save new item
-        document.getElementById('saveAdd').addEventListener('click', function () {
+        
+        // Function to hide add modal
+        function hideAddModal() {
+            document.getElementById('addItemModal').style.display = 'none';
+        }
+        
+        // Function to save new item
+        function saveNewItem() {
             const product = document.getElementById('product').value;
             const productId = document.getElementById('productId').value;
             const form = document.getElementById('form').value;
@@ -587,106 +745,298 @@
             const location = document.getElementById('location').value;
             const quantity = document.getElementById('quantity').value;
             const remarks = document.getElementById('remarks').value;
-
-            if (product && productId && form && expiry && location && quantity) {
-                const tableBody = document.querySelector('.inventory-table tbody');
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td><input type="checkbox" class="checkbox"></td>
-                    <td>${product}</td>
-                    <td>${productId}</td>
-                    <td>${form}</td>
-                    <td>${expiry}</td>
-                    <td>${location}</td>
-                    <td class="quantity-cell">${quantity}</td>
-                    <td>${remarks}</td>
-                `;
-                tableBody.appendChild(newRow);
-
-                // Attach checkbox listener to the new row
-                attachCheckboxListener(newRow);
-
-                // Close modal and reset fields
-                document.getElementById('addItemModal').style.display = 'none';
-                document.querySelectorAll('.modal-body input').forEach(input => input.value = '');
-            } else {
-                alert('Please fill out all fields.');
+            
+            // Validate form
+            if (!product || !productId || !form || !expiry || !location || !quantity) {
+                alert('Please fill in all required fields.');
+                return;
             }
-        });
-
-        // Attach checkbox listeners to existing rows on page load
-        document.querySelectorAll('.inventory-table tbody tr').forEach(attachCheckboxListener);
-
-        // Add interactivity to search
-        document.querySelector('.search-bar input').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const text = row.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    row.style.display = '';
+            
+            // Send data to server
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'add_item.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    if (xhr.responseText.includes('Error')) {
+                        alert(xhr.responseText);
+                    } else {
+                        // Check if the response contains an alert script
+                        if (xhr.responseText.includes('<script>alert')) {
+                            // Extract the alert message
+                            const alertMatch = xhr.responseText.match(/<script>alert$$'(.*?)'$$;<\/script>/);
+                            if (alertMatch && alertMatch[1]) {
+                                alert(alertMatch[1]);
+                            }
+                            
+                            // Reload the entire inventory to show the updated item
+                            loadInventoryData();
+                        } else {
+                            // Add new row to table
+                            document.getElementById('inventoryTableBody').insertAdjacentHTML('beforeend', xhr.responseText);
+                            attachCheckboxListeners();
+                            alert('Item added successfully!');
+                        }
+                        
+                        hideAddModal();
+                    }
                 } else {
-                    row.style.display = 'none';
+                    alert('Error adding item.');
                 }
-            });
-        });
-
-        // Add interactivity to info icons
-        document.querySelectorAll('.info-icon').forEach(icon => {
-            icon.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const product = row.cells[1].textContent;
-                alert(`Additional information for ${product} would be displayed here`);
-            });
-        });
-
-        // Add interactivity to delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'btn btn-delete';
-        deleteButton.innerHTML = '<i class="fas fa-trash"></i> Delete';
-        document.querySelector('.action-buttons').appendChild(deleteButton);
-
-        deleteButton.addEventListener('click', function() {
-            document.getElementById('deleteItemModal').style.display = 'flex';
-        });
-
-        // Close delete modal on cancel
-        document.getElementById('cancelDelete').addEventListener('click', function() {
-            document.getElementById('deleteItemModal').style.display = 'none';
-        });
-
-        // Confirm delete
-        document.getElementById('confirmDelete').addEventListener('click', function() {
+            };
+            
+            xhr.onerror = function() {
+                alert('Error adding item. Please check your connection.');
+            };
+            
+            xhr.send(`product=${encodeURIComponent(product)}&productId=${encodeURIComponent(productId)}&form=${encodeURIComponent(form)}&expiry=${encodeURIComponent(expiry)}&location=${encodeURIComponent(location)}&quantity=${encodeURIComponent(quantity)}&remarks=${encodeURIComponent(remarks)}`);
+        }
+        
+        // Function to show edit modal
+        function showEditModal() {
             const selectedRows = document.querySelectorAll('tr.selected');
-            selectedRows.forEach(row => row.remove());
-            alert('Selected item(s) deleted successfully.');
-            document.getElementById('deleteItemModal').style.display = 'none';
-        });
-
-        // Add interactivity to delete button
-        document.querySelector('.btn-delete').addEventListener('click', function () {
+            
+            if (selectedRows.length !== 1) {
+                alert('Please select exactly one item to edit.');
+                return;
+            }
+            
+            const row = selectedRows[0];
+            const id = row.getAttribute('data-id');
+            const product = row.cells[1].textContent;
+            const productId = row.cells[2].textContent;
+            const form = row.cells[3].textContent;
+            const expiry = formatDateForInput(row.cells[4].textContent);
+            const location = row.cells[5].textContent;
+            const quantity = row.cells[6].textContent;
+            const remarks = row.querySelector('.info-icon').getAttribute('data-remarks') || '';
+            
+            document.getElementById('editId').value = id;
+            document.getElementById('editProduct').value = product;
+            document.getElementById('editProductId').value = productId;
+            document.getElementById('editForm').value = form;
+            document.getElementById('editExpiry').value = expiry;
+            document.getElementById('editLocation').value = location;
+            document.getElementById('editQuantity').value = quantity;
+            document.getElementById('editRemarks').value = remarks;
+            
+            document.getElementById('editItemModal').style.display = 'flex';
+        }
+        
+        // Function to hide edit modal
+        function hideEditModal() {
+            document.getElementById('editItemModal').style.display = 'none';
+        }
+        
+        // Function to save edited item
+        function saveEditedItem() {
+            const id = document.getElementById('editId').value;
+            const product = document.getElementById('editProduct').value;
+            const productId = document.getElementById('editProductId').value;
+            const form = document.getElementById('editForm').value;
+            const expiry = document.getElementById('editExpiry').value;
+            const location = document.getElementById('editLocation').value;
+            const quantity = document.getElementById('editQuantity').value;
+            const remarks = document.getElementById('editRemarks').value;
+            
+            // Validate form
+            if (!product || !productId || !form || !expiry || !location || !quantity) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Send data to server
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'edit_item.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    if (xhr.responseText.includes('Error')) {
+                        alert(xhr.responseText);
+                    } else {
+                        hideEditModal();
+                        loadInventoryData(); // Reload the table
+                        alert('Item updated successfully!');
+                    }
+                } else {
+                    alert('Error updating item.');
+                }
+            };
+            
+            xhr.onerror = function() {
+                alert('Error updating item. Please check your connection.');
+            };
+            
+            xhr.send(`id=${encodeURIComponent(id)}&product=${encodeURIComponent(product)}&productId=${encodeURIComponent(productId)}&form=${encodeURIComponent(form)}&expiry=${encodeURIComponent(expiry)}&location=${encodeURIComponent(location)}&quantity=${encodeURIComponent(quantity)}&remarks=${encodeURIComponent(remarks)}`);
+        }
+        
+        // Function to show delete modal
+        function showDeleteModal() {
             const selectedRows = document.querySelectorAll('tr.selected');
+            
             if (selectedRows.length === 0) {
                 alert('Please select at least one item to delete.');
                 return;
             }
-
+            
             const deleteItemsList = document.getElementById('deleteItemsList');
             deleteItemsList.innerHTML = 'Are you sure you want to delete the following items?<ul>';
+            
             selectedRows.forEach(row => {
                 const productName = row.cells[1].textContent;
-                deleteItemsList.innerHTML += `<li>${productName}</li>`;
+                const productId = row.cells[2].textContent;
+                deleteItemsList.innerHTML += `<li>${productName} (${productId})</li>`;
             });
+            
             deleteItemsList.innerHTML += '</ul>';
-
             document.getElementById('deleteItemModal').style.display = 'flex';
-        });
-
-        // Remove dynamically created delete button
-        const dynamicDeleteButton = document.querySelector('.action-buttons .btn-delete:last-child');
-        if (dynamicDeleteButton) {
-            dynamicDeleteButton.remove();
         }
-
+        
+        // Function to hide delete modal
+        function hideDeleteModal() {
+            document.getElementById('deleteItemModal').style.display = 'none';
+        }
+        
+        // Function to delete selected items
+        function deleteSelectedItems() {
+            const selectedRows = document.querySelectorAll('tr.selected');
+            let deletedCount = 0;
+            let totalCount = selectedRows.length;
+            
+            selectedRows.forEach(row => {
+                const productId = row.cells[2].textContent;
+                
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'delete_item.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        deletedCount++;
+                        
+                        if (deletedCount === totalCount) {
+                            hideDeleteModal();
+                            loadInventoryData(); // Reload the table
+                            alert('Selected items deleted successfully!');
+                        }
+                    } else {
+                        alert('Error deleting item.');
+                    }
+                };
+                
+                xhr.onerror = function() {
+                    alert('Error deleting item. Please check your connection.');
+                };
+                
+                xhr.send(`productId=${encodeURIComponent(productId)}`);
+            });
+        }
+        
+        // Function to search items
+        function searchItems() {
+            const searchTerm = document.getElementById('searchInput').value;
+            
+            if (searchTerm.length === 0) {
+                loadInventoryData();
+                return;
+            }
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `search_item.php?searchTerm=${encodeURIComponent(searchTerm)}`, true);
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('inventoryTableBody').innerHTML = xhr.responseText;
+                    attachCheckboxListeners();
+                } else {
+                    alert('Error searching items.');
+                }
+            };
+            
+            xhr.onerror = function() {
+                alert('Error searching items. Please check your connection.');
+            };
+            
+            xhr.send();
+        }
+        
+        // Function to sort table
+        function sortTable(column, order) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `fetch_items.php?sort=${column}&order=${order}`, true);
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById('inventoryTableBody').innerHTML = xhr.responseText;
+                    attachCheckboxListeners();
+                    
+                    // Update the sort icon on the column header
+                    document.querySelectorAll('.inventory-table th[data-column]').forEach(header => {
+                        const headerColumn = header.getAttribute('data-column');
+                        if (headerColumn === column) {
+                            header.setAttribute('data-order', order);
+                            header.querySelector('i').className = order === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
+                        } else {
+                            header.setAttribute('data-order', '');
+                            header.querySelector('i').className = 'fas fa-sort';
+                        }
+                    });
+                } else {
+                    alert('Error sorting table.');
+                }
+            };
+            
+            xhr.onerror = function() {
+                alert('Error sorting table. Please check your connection.');
+            };
+            
+            xhr.send();
+        }
+        
+        // Function to attach checkbox listeners
+        function attachCheckboxListeners() {
+            document.querySelectorAll('.inventory-table tbody tr').forEach(row => {
+                const checkbox = row.querySelector('.checkbox');
+                if (checkbox) {
+                    checkbox.addEventListener('change', function() {
+                        if (this.checked) {
+                            row.classList.add('selected');
+                        } else {
+                            row.classList.remove('selected');
+                        }
+                    });
+                }
+            });
+            
+            // Add info icon listeners
+            document.querySelectorAll('.info-icon').forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent row selection
+                    const remarks = this.getAttribute('data-remarks') || 'No additional information available.';
+                    alert(remarks);
+                });
+            });
+        }
+        
+        // Function to format date for input field
+        function formatDateForInput(dateString) {
+            // Convert from MM/DD/YYYY to YYYY-MM-DD
+            if (!dateString) return '';
+            
+            const parts = dateString.split('/');
+            if (parts.length !== 3) return dateString;
+            
+            return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
+        }
+        
+        // Function to exit application
+        function exitApplication() {
+            if (confirm('Are you sure you want to exit?')) {
+                window.location.href = 'login.html';
+            }
+        }
     </script>
 </body>
 </html>
